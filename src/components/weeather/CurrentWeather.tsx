@@ -2,10 +2,11 @@
 import { BsFillCloudFill } from "react-icons/bs";
 import { Card, CardFooter } from "../ui/card";
 // import type { City, HourlyForecastData } from "../../lib/types";
-import type { Weather, WeatherConditions } from "~/lib/wttrTypes";
+import type { Weather, WeatherConditions, WeatherData } from "~/lib/wttrTypes";
 import { getMetaData } from "~/lib/utils";
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
+import { useWeatherIcon } from "~/lib/hooks/WeatherHooks";
 
 interface CurrentWeatherProps {
   data: Weather;
@@ -20,30 +21,6 @@ export default function CurrentWeather({ data }: CurrentWeatherProps) {
   const currentCondition = data.current_condition[0];
   const thisWeek = data.weather;
 
-  const useGetDayFromToday = (day: number) => {
-    const today = new Date();
-    const result = new Date(today);
-    result.setDate(today.getDate() + day);
-    return result;
-  };
-
-  const useWeatherIcon = (weatherDesc: string) => {
-    if (weatherDesc === "Sunny") {
-      return <BsFillCloudFill />;
-    }
-    if (weatherDesc === "Clear") {
-      return <BsFillCloudFill />;
-    }
-    if (weatherDesc === "Partly cloudy") {
-      return <BsFillCloudFill />;
-    }
-    if (weatherDesc === "Cloudy") {
-      return <BsFillCloudFill />;
-    }
-
-    return <BsFillCloudFill />;
-  };
-
   const router = useRouter();
   useEffect(() => {
     const interval = setInterval(
@@ -56,7 +33,7 @@ export default function CurrentWeather({ data }: CurrentWeatherProps) {
   });
 
   return (
-    <Card className="w-[380px] bg-slate-800 p-5">
+    <Card className="w-7/12 bg-slate-800 p-5">
       <div className="flex justify-between">
         <div className="text-xl">{curcon?.temp_F}°</div>
         <div>
@@ -77,28 +54,42 @@ export default function CurrentWeather({ data }: CurrentWeatherProps) {
       </div>
       <div className="h-80 content-center">
         <BsFillCloudFill className="h-28 w-full" />
+        <div className="flex justify-center">
+          {currentCondition?.weatherDesc[0]?.value}
+        </div>
       </div>
       <CardFooter>
-        <div className=" h-20 w-full  border-t border-green-500">
-          <div>
-            <p>
-              {useGetDayFromToday(1).toLocaleDateString(undefined, {
-                weekday: "long",
-              })}
-              : {thisWeek[1]?.maxtempF}° / {thisWeek[1]?.mintempF}°
-            </p>
-          </div>
-          <div>
-            <p>
-              {useWeatherIcon(thisWeek[2]?.hourly[4]?.weatherDesc[0]?.value)}
-              {useGetDayFromToday(2).toLocaleDateString(undefined, {
-                weekday: "long",
-              })}
-              : {thisWeek[2]?.maxtempF}° / {thisWeek[2]?.mintempF}°
-            </p>
-          </div>
+        <div className=" h-20 w-full  border-t border-slate-600 pt-1">
+          {thisWeek.map((day, index) => {
+            return <NextDayWeather key={index} thisWeek={day} />;
+          })}
         </div>
       </CardFooter>
     </Card>
   );
 }
+
+const NextDayWeather = ({ thisWeek }: { thisWeek: WeatherData }) => {
+  return (
+    <>
+      <div className="flex w-8/12 flex-nowrap items-center space-x-2 ">
+        <div className="flex flex-nowrap items-center space-x-2">
+          <span>
+            {useWeatherIcon(
+              thisWeek?.hourly[4]?.weatherDesc[0]?.value ?? "Sunny",
+            )}
+          </span>
+          <span>
+            {new Date(thisWeek.date).toLocaleDateString(undefined, {
+              weekday: "long",
+            })}
+            :
+          </span>
+        </div>
+        <p>
+          {thisWeek?.maxtempF}° / {thisWeek?.mintempF}°
+        </p>
+      </div>
+    </>
+  );
+};

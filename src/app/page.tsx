@@ -9,6 +9,7 @@ import { getWttrData } from "~/actions/getWttrData";
 import CurrentWeather from "../components/weeather/CurrentWeather";
 import type { Weather } from "~/lib/wttrTypes";
 import Time from "../components/ui/Time";
+import CalendarWeekView from "~/components/Calendar/CalendarWeekView";
 export const dynamic = "force-dynamic"; // makes sure changes update on page if database data changes
 
 export default async function HomePage() {
@@ -20,6 +21,9 @@ export default async function HomePage() {
   return (
     <main className="p-3">
       <div>{wttrData && <CurrentWeather data={wttrData} />}</div>
+      <div>
+        <CalendarWeekView />
+      </div>
       <p>Last Updated: {lastUpdated.toLocaleString()}</p>
     </main>
   );
