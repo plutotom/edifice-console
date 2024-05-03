@@ -34,3 +34,10 @@ export function getMetaData(data: Weather | undefined): {
   const weatherDesc = curcon ? curcon?.weatherDesc[0]?.value : undefined;
   return { title, curcon, weatherDesc, area };
 }
+export function getHourlyForecastData(data: Weather): Weather {
+  return data;
+}
+
+export function getWeatherForecastData(data: Weather): Weather {
+  return data;
+}
