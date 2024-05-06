@@ -1,9 +1,3 @@
-import {
-  Card,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "~/components/ui/card";
 import { DEFAULT_LOCATION } from "../lib/config";
 import { getWttrData } from "~/actions/getWttrData";
 import CurrentWeather from "../components/weeather/CurrentWeather";
@@ -20,6 +14,7 @@ export default async function HomePage() {
 
   return (
     <main className="p-3">
+      <Time />
       <div>{wttrData && <CurrentWeather data={wttrData} />}</div>
       <div>
         <CalendarWeekView />
