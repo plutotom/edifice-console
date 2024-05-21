@@ -13,7 +13,6 @@ export default function Time() {
       const second = dateObject.getSeconds();
 
       const currentTime = hour + " : " + minute + " : " + second;
-      console.log("Hello");
       setTime(currentTime);
     }, 1000);
 

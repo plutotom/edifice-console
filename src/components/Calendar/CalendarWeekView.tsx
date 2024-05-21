@@ -1,36 +1,40 @@
-// make a simpel cander tsx component
+"use client";
 import React from "react";
 import { Card } from "../ui/card";
+import type { Event } from "../../lib/calTypes";
 
-export default function CalendarWeekView() {
-  const CalendarWeekData = [
-    {
-      date: "2021-10-11",
-      title: "Meeting",
-      description: "Discuss the new project",
-      time: "10:00",
-      location: "Office",
-    },
-  ];
-
+export default function CalendarWeekView({ data }: { data: Event[] }) {
+  console.log(data);
   return (
-    <Card className="with-6/12 border border-slate-500 bg-stone-700">
-      <h2 className="px-5">Calendar Week View</h2>
+    <Card className="with-6/12  bg-slate-800">
+      <h2 className="px-5 text-2xl">Calendar Week View</h2>
       <div className="CalenderList">
-        <ul>
-          {CalendarWeekData.map((item, index) => {
+        <ul className="border border-slate-900">
+          {data.map((item, index, arr) => {
+            // If currentDay !== last day, put line brake
+            // if (lastDay !== item.date && index !== 0) {
+            //   return (
+            //     <div key={index}>
+            //       <div className="border border-b-slate-500">
+            //         Day: {new Date(item.date).toLocaleDateString()}
+            //       </div>
+            //       <CalendarRow
+            //         item={item}
+            //         index={index}
+            //         arr={arr}
+            //         key={index}
+            //       />
+            //     </div>
+            //   );
+            // } else {
+            //   lastDay = item.date;
+            //   return (
+            //     <CalendarRow item={item} index={index} arr={arr} key={index} />
+            //   );
+            // }
+
             return (
-              <li key={index} className="flex justify-between space-x-2 p-5">
-                <div className="flex space-x-2">
-                  <h3>{item.date}</h3>
-                  <h3>{item.title}</h3>
-                  <p>{item.description}</p>
-                </div>
-                <div className="flex space-x-2">
-                  <p>{item.time}</p>
-                  <p>{item.location}</p>
-                </div>
-              </li>
+              <CalendarRow item={item} index={index} arr={arr} key={index} />
             );
           })}
         </ul>
@@ -38,3 +42,29 @@ export default function CalendarWeekView() {
     </Card>
   );
 }
+
+const CalendarRow = ({
+  item,
+  index,
+  arr,
+}: {
+  item: Event;
+  index: number;
+  arr: Array<Event>;
+}) => {
+  index;
+  arr;
+  return (
+    <li className="flex justify-between space-x-2 p-5">
+      <div className="flex space-x-2">
+        <h3>{new Date(item?.start?.dateTime).toLocaleDateString()}</h3>
+        <h3 className="underline underline-offset-auto ">{item.summary}</h3>
+        {/* <p className="flex-wrap">{item.summary}</p> */}
+      </div>
+      <div className="flex space-x-2">
+        <h3>{new Date(item?.start?.dateTime).toLocaleTimeString("hh")}</h3>
+        <p>{item.eventType}</p>
+      </div>
+    </li>
+  );
+};

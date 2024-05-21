@@ -2,7 +2,7 @@
 import { BsFillCloudFill } from "react-icons/bs";
 import { Card, CardFooter } from "../ui/card";
 // import type { City, HourlyForecastData } from "../../lib/types";
-import type { Weather, WeatherConditions, WeatherData } from "~/lib/wttrTypes";
+import type { Weather, WeatherData } from "~/lib/wttrTypes";
 import { getMetaData } from "~/lib/utils";
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
@@ -13,9 +13,8 @@ interface CurrentWeatherProps {
 }
 
 export default function CurrentWeather({ data }: CurrentWeatherProps) {
-  const { curcon, weatherDesc, area } = getMetaData(data);
-  console.log(data);
-  const tempDesc = weatherDesc;
+  const { curcon, area } = getMetaData(data);
+  // const tempDesc = weatherDesc;
   const location = area?.areaName[0]?.value;
   const weatherData = data.weather[0];
   const currentCondition = data.current_condition[0];
