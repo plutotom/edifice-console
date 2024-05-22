@@ -20,9 +20,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={`font-sans ${inter.variable} dark grid`}>
-        {children}
-      </body>
+      <body className={` ${inter.variable} dark grid`}>{children}</body>
     </html>
   );
 }
