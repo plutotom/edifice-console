@@ -10,7 +10,13 @@ import CalendarWeekViewV3 from "~/components/Calendar/CalendarWeekViewV3";
 
 export default async function HomePage() {
   const city = DEFAULT_LOCATION.city || "Elgin";
-  const wttrData = (await getWttrData(city)) as Weather;
+  let wttrData;
+  try {
+    wttrData = (await getWttrData(city)) as Weather;
+  } catch (error) {
+    console.log("error in HomePage");
+    console.log(error);
+  }
 
   const notionTodos = await getAllNotionTodos();
   return (
