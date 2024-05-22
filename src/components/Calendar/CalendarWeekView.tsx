@@ -10,29 +10,7 @@ export default function CalendarWeekView({ data }: { data: Event[] }) {
       <h2 className="px-5 text-2xl">Calendar Week View</h2>
       <div className="CalenderList">
         <ul className="border border-slate-900">
-          {data.map((item, index, arr) => {
-            // If currentDay !== last day, put line brake
-            // if (lastDay !== item.date && index !== 0) {
-            //   return (
-            //     <div key={index}>
-            //       <div className="border border-b-slate-500">
-            //         Day: {new Date(item.date).toLocaleDateString()}
-            //       </div>
-            //       <CalendarRow
-            //         item={item}
-            //         index={index}
-            //         arr={arr}
-            //         key={index}
-            //       />
-            //     </div>
-            //   );
-            // } else {
-            //   lastDay = item.date;
-            //   return (
-            //     <CalendarRow item={item} index={index} arr={arr} key={index} />
-            //   );
-            // }
-
+          {data?.map((item, index, arr) => {
             return (
               <CalendarRow item={item} index={index} arr={arr} key={index} />
             );
