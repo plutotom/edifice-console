@@ -61,5 +61,6 @@
   },
   "ct3aMetadata": {
     "initVersion": "7.30.2"
-  }
+  },
+  "package-manager-strict": false
 }
