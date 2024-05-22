@@ -1,6 +1,5 @@
-// const { Client } = require("@notionhq/client");
 import { Client } from "@notionhq/client";
-import { NotionTodoDatabase } from "../lib/notionTypes/database.ts";
+// import { NotionTodoDatabase } from "../lib/notionTypes/database.ts";
 import { Todo } from "../lib/notionTypes/todo.js";
 
 const createClient = async () => {
